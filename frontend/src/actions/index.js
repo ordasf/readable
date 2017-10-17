@@ -31,7 +31,6 @@ export const fetchCategories = () => {
 };
 
 export const receiveAllPosts = (posts) => {
-  debugger;
   return {
     type: RECEIVE_ALL_POSTS,
     posts

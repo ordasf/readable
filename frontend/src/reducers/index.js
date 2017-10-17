@@ -19,7 +19,6 @@ function categories(state = [], action) {
 function posts(state = [], action) {
   switch (action.type) {
     case RECEIVE_ALL_POSTS:
-      debugger;
       return [...state, ...action.posts];
     case ADD_POST:
       return state;
