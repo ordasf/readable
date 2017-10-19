@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllPosts, fetchCategoryPostsAction } from '../actions/index';
+import Post from './Post';
 
 class PostList extends React.Component {
 
@@ -20,7 +21,7 @@ class PostList extends React.Component {
           {
             this.props.posts.map((post) => {
               return (
-                <li key={post.id}>{post.author} - {post.body}</li>
+                <div><li key={post.id}>{post.author} - {post.body}</li><Post/></div>
               );
             })
           }
