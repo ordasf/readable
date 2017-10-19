@@ -17,3 +17,7 @@ export function fetchCategories2() {
 export function fetchPosts() {
   return fetch('http://localhost:3001/posts', headers);
 }
+
+export function fetchCategoryPosts(category) {
+  return fetch(`http://localhost:3001/${category}/posts`, headers);
+}

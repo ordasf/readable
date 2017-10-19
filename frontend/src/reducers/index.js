@@ -4,7 +4,8 @@ import {
   RECEIVE_CATEGORIES,
   RECEIVE_ALL_POSTS,
   ADD_POST,
-  ADD_COMMENT
+  ADD_COMMENT,
+  RECEIVE_CATEGORY_POSTS
 } from '../actions';
 
 function categories(state = [], action) {
@@ -19,6 +20,8 @@ function categories(state = [], action) {
 function posts(state = [], action) {
   switch (action.type) {
     case RECEIVE_ALL_POSTS:
+      return [...state, ...action.posts];
+    case RECEIVE_CATEGORY_POSTS:
       return [...state, ...action.posts];
     case ADD_POST:
       return state;

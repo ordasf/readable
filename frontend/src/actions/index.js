@@ -1,8 +1,9 @@
-import { fetchCategories2, fetchPosts } from '../util/api';
+import { fetchCategories2, fetchPosts, fetchCategoryPosts } from '../util/api';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 
 export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS';
+export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
@@ -42,5 +43,20 @@ export const fetchAllPosts = () => {
     fetchPosts()
       .then(response => response.json())
       .then(posts => dispatch(receiveAllPosts(posts)));
+  }
+}
+
+export const receiveCategoryPosts = (posts) => {
+  return {
+    type: RECEIVE_CATEGORY_POSTS,
+    posts
+  };
+}
+
+export const fetchCategoryPostsAction = (category) => {
+  return dispatch => {
+    fetchCategoryPosts(category)
+      .then(response => response.json())
+      .then(posts => dispatch(receiveCategoryPosts(posts)));
   }
 }
