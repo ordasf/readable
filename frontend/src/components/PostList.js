@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAllPosts, fetchCategoryPostsAction } from '../actions/index';
 
-class Posts extends React.Component {
+class PostList extends React.Component {
 
   componentDidMount() {
     const { category } = this.props.match.params;
@@ -36,4 +36,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Posts);
+export default connect(mapStateToProps)(PostList);

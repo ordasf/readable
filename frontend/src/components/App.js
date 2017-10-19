@@ -5,7 +5,7 @@ import '../App.css';
 import { fetchCategories } from '../actions';
 import { Route } from 'react-router-dom';
 import Categories from './Categories';
-import Posts from './Posts';
+import PostList from './PostList';
 import PostDetail from './PostDetail'
 
 class App extends Component {
@@ -23,8 +23,8 @@ class App extends Component {
         </header>
         <Categories/>
         <div>
-          <Route exact path={`/`} component={Posts} />
-          <Route exact path={`/:category`} component={Posts} />
+          <Route exact path={`/`} component={PostList} />
+          <Route exact path={`/:category`} component={PostList} />
           <Route exact path={`/:category/:postid`} component={PostDetail}/>
         </div>
       </div>
