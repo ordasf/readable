@@ -2,9 +2,17 @@ import React from 'react';
 
 class Post extends React.Component {
 
+  componentDidMount() {
+    debugger;
+  }
+
   render() {
+    const post = this.props.postInfo;
     return (
-      <p>Information of the post inside the list</p>
+      <div>
+        <h3><a href={post.id}>{post.title}</a></h3>
+        <h5>{post.author}</h5>
+      </div>
     );
   }
 }

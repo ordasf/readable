@@ -1,9 +1,10 @@
-import { fetchCategories2, fetchPosts, fetchCategoryPosts } from '../util/api';
+import { fetchCategories2, fetchCategoryPosts, fetchPost } from '../util/api';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
-
-export const RECEIVE_ALL_POSTS = 'RECEIVE_ALL_POSTS';
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
+export const RECEIVE_POST = 'RECEIVE_POSTS';
+
+
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
@@ -31,21 +32,6 @@ export const fetchCategories = () => {
   };
 };
 
-export const receiveAllPosts = (posts) => {
-  return {
-    type: RECEIVE_ALL_POSTS,
-    posts
-  }
-}
-
-export const fetchAllPosts = () => {
-  return dispatch => {
-    fetchPosts()
-      .then(response => response.json())
-      .then(posts => dispatch(receiveAllPosts(posts)));
-  }
-}
-
 export const receiveCategoryPosts = (posts) => {
   return {
     type: RECEIVE_CATEGORY_POSTS,
@@ -59,4 +45,19 @@ export const fetchCategoryPostsAction = (category) => {
       .then(response => response.json())
       .then(posts => dispatch(receiveCategoryPosts(posts)));
   }
+}
+
+export const receivePost = (post) => {
+  return {
+    type: RECEIVE_POST,
+    post: [post]
+  };
+}
+
+export const fetchPostAction = (postId) => {
+  return dispatch => {
+    fetchPost(postId)
+      .then(response => (response.json()))
+      .then(post => dispatch(receivePost(post)));
+  };
 }

@@ -25,7 +25,7 @@ class App extends Component {
         <div>
           <Route exact path={`/`} component={PostList} />
           <Route exact path={`/:category`} component={PostList} />
-          <Route exact path={`/:category/:postid`} component={PostDetail}/>
+          <Route exact path={`/:category/:postId`} component={PostDetail}/>
         </div>
       </div>
     );

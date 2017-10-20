@@ -1,31 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchAllPosts, fetchCategoryPostsAction } from '../actions/index';
+import { fetchCategoryPostsAction } from '../actions/index';
 import Post from './Post';
 
 class PostList extends React.Component {
 
   componentDidMount() {
     const { category } = this.props.match.params;
-    if (category) {
-      this.props.dispatch(fetchCategoryPostsAction(category));
-    } else {
-      this.props.dispatch(fetchAllPosts());
-    }
+    this.props.dispatch(fetchCategoryPostsAction(category));
   }
 
   render() {
     return (
       <div>
-        <ul>
-          {
-            this.props.posts.map((post) => {
-              return (
-                <div><li key={post.id}>{post.author} - {post.body}</li><Post/></div>
-              );
-            })
-          }
-        </ul>
+        {
+          this.props.posts.map((post) => {
+            return (
+              <div key={post.id}>
+                <h3><a href={`${post.category}/${post.id}`}>{post.title}</a></h3>
+                <h5>{post.author}</h5>
+              </div>
+            );
+          })
+        }
       </div>
     );
   }
