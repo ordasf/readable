@@ -1,5 +1,5 @@
 import {
-  fetchCategories2,
+  fetchCategories,
   fetchCategoryPosts,
   fetchPost,
   fetchComments
@@ -30,9 +30,9 @@ export const receiveCategories = ({ categories }) => {
   }
 };
 
-export const fetchCategories = () => {
+export const fetchCategoriesAction = () => {
   return dispatch => {
-    fetchCategories2()
+    fetchCategories()
       .then(response => response.json())
       .then(categories => dispatch(receiveCategories(categories)));
   };

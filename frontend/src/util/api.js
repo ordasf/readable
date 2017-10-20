@@ -6,11 +6,6 @@ const headers = {
 };
 
 export function fetchCategories() {
-  return fetch('http://localhost:3001/categories', headers)
-    .then(response => response.json());
-}
-
-export function fetchCategories2() {
   return fetch('http://localhost:3001/categories', headers);
 }
 

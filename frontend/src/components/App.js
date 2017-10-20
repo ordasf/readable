@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import logo from '../logo.svg';
 import '../App.css';
-import { fetchCategories } from '../actions';
+import { fetchCategoriesAction } from '../actions';
 import { Route } from 'react-router-dom';
 import Categories from './Categories';
 import PostList from './PostList';
@@ -11,7 +11,7 @@ import PostDetail from './PostDetail'
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch(fetchCategories());
+    this.props.dispatch(fetchCategoriesAction());
   }
 
   render() {
