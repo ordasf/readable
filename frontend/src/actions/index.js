@@ -1,8 +1,14 @@
-import { fetchCategories2, fetchCategoryPosts, fetchPost } from '../util/api';
+import {
+  fetchCategories2,
+  fetchCategoryPosts,
+  fetchPost,
+  fetchComments
+} from '../util/api';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POSTS';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 
 
 export const ADD_POST = 'ADD_POST';
@@ -59,5 +65,20 @@ export const fetchPostAction = (postId) => {
     fetchPost(postId)
       .then(response => (response.json()))
       .then(post => dispatch(receivePost(post)));
+  };
+}
+
+export const receiveComments = (comments) => {
+  return {
+    type: RECEIVE_COMMENTS,
+    comments
+  }
+}
+
+export const fetchCommentsAction = (postId) => {
+  return dispatch => {
+    fetchComments(postId)
+      .then(response => (response.json()))
+      .then(post => dispatch(receiveComments(post)));
   };
 }

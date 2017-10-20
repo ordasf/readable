@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPostAction } from '../actions/index';
+import CommentList from './CommentList';
 
 class PostDetail extends React.Component {
 
@@ -9,17 +10,15 @@ class PostDetail extends React.Component {
   }
 
   render() {
-    const post = this.props.post;
     return (
       <div>
         {
           this.props.posts.map(post => (
-            <div>
-              <p>{post.title}</p>
-              <p>by {post.author}</p>
+            <div key={post.id}>
+              <p>{post.title} by {post.author} at {post.timestamp}</p>
               <p>{post.body}</p>
-              <p>written: {post.timestamp}</p>
               <p>Score: {post.voteScore}</p>
+              <CommentList/>
             </div>
           ))
         }

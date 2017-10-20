@@ -25,3 +25,7 @@ export function fetchCategoryPosts(category) {
 export function fetchPost(postId) {
   return fetch(`http://localhost:3001/posts/${postId}`, headers);
 }
+
+export function fetchComments(postId) {
+  return fetch(`http://localhost:3001/posts/${postId}/comments`, headers);
+}

@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import {
   RECEIVE_CATEGORIES,
   ADD_POST,
-  ADD_COMMENT,
   RECEIVE_CATEGORY_POSTS,
-  RECEIVE_POST
+  RECEIVE_POST,
+  RECEIVE_COMMENTS
 } from '../actions';
 
 function categories(state = [], action) {
@@ -32,8 +32,8 @@ function posts(state = [], action) {
 
 function comments(state = [], action) {
   switch (action.type) {
-    case ADD_COMMENT:
-      return state;
+    case RECEIVE_COMMENTS:
+      return [...state, ...action.comments];
     default:
       return state;
   }
