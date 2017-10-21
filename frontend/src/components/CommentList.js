@@ -10,7 +10,7 @@ class CommentList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: 'red'}}>
         {
           this.props.comments.map(comment => (
             <div>

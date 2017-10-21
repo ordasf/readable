@@ -5,7 +5,7 @@ class Categories extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: 'bisque'}}>
         {
           this.props.categories.map((category) => (
             <p key={category.path}><a href={category.path}>{category.name}</a></p>

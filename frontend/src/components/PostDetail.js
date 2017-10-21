@@ -11,7 +11,7 @@ class PostDetail extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: 'darksalmon'}}>
         {
           this.props.posts.map(post => (
             <div key={post.id}>

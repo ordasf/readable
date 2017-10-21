@@ -21,8 +21,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Readable!</h1>
         </header>
-        <Categories/>
         <div>
+          <Categories/>
           <Route exact path={`/`} component={PostList} />
           <Route exact path={`/:category`} component={PostList} />
           <Route exact path={`/:category/:postId`} component={PostDetail}/>

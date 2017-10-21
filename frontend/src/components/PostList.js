@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPostsAction } from '../actions/index';
-import Post from './Post';
 
 class PostList extends React.Component {
 
@@ -12,7 +11,7 @@ class PostList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: 'gainsboro'}}>
         {
           this.props.posts.map((post) => {
             return (
