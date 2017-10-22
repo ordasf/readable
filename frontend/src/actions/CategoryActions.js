@@ -1,5 +1,5 @@
 import {
-  fetchCategories
+  makeGETRequest
 } from '../util/api';
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
@@ -13,7 +13,7 @@ export const receiveCategories = ({ categories }) => {
 
 export const fetchCategoriesAction = () => {
   return dispatch => {
-    fetchCategories()
+    makeGETRequest('categories')
       .then(categories => dispatch(receiveCategories(categories)));
   };
 };

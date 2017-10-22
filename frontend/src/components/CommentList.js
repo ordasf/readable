@@ -18,6 +18,7 @@ class CommentList extends React.Component {
             </div>
           ))
         }
+        <button>Add comment</button>
       </div>
     );
   }

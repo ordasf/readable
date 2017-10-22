@@ -1,5 +1,5 @@
 import {
-  fetchComments
+  makeGETRequest
 } from '../util/api';
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
@@ -18,8 +18,9 @@ export const receiveComments = (comments) => {
 };
 
 export const fetchCommentsAction = (postId) => {
+  const query = `posts/${postId}/comments`
   return dispatch => {
-    fetchComments(postId)
+    makeGETRequest(query)
       .then(post => dispatch(receiveComments(post)));
   };
 };

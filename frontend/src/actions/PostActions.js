@@ -1,7 +1,6 @@
 import {
-  fetchCategoryPosts,
-  fetchPost,
-  addPost
+  makeGETRequest,
+  makePOSTRequest
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
@@ -21,8 +20,14 @@ export const receiveCategoryPosts = (posts) => {
 };
 
 export const fetchCategoryPostsAction = (category) => {
+  let query = '';
+  if (category) {
+    query = `${category}/posts`
+  } else {
+    query = `posts`
+  }
   return dispatch => {
-    fetchCategoryPosts(category)
+    makeGETRequest(query)
       .then(posts => dispatch(receiveCategoryPosts(posts)));
   }
 };
@@ -35,8 +40,9 @@ export const receivePost = (post) => {
 };
 
 export const fetchPostAction = (postId) => {
+  const query = `posts/${postId}`;
   return dispatch => {
-    fetchPost(postId)
+    makeGETRequest(query)
       .then(post => dispatch(receivePost(post)));
   };
 };
@@ -50,7 +56,7 @@ export const createPost = (post) => {
 
 export const createPostAction = (post) => {
   return dispatch => {
-    addPost(post)
+    makePOSTRequest('posts', post)
       .then(postData => {
         dispatch(createPost(postData))
       });

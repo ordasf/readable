@@ -20,6 +20,10 @@ class PostDetail extends React.Component {
     });
   };
 
+  deletePost = () => {
+
+  };
+
   render() {
     return (
       <div style={{backgroundColor: 'darksalmon'}}>
