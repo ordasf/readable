@@ -8,11 +8,6 @@ const headers = {
 
 const SERVER_URL = 'http://localhost:3001';
 
-export function fetchComments(postId) {
-  return fetch(`${SERVER_URL}/posts/${postId}/comments`, headers)
-    .then(response => (response.json()));
-}
-
 export function makeGETRequest(query) {
   return fetch(`${SERVER_URL}/${query}`, headers)
     .then(response => (response.json()));
