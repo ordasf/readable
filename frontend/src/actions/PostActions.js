@@ -79,3 +79,31 @@ export const deletePostAction = (postId) => {
       });
   }
 };
+
+export const upVotePost = (post) => {
+  return {
+    type: UPVOTE_POST,
+    post
+  };
+};
+
+export const upVotePostAction = (postId) => {
+  return dispatch => {
+    makePOSTRequest(`posts/${postId}`, { option: 'upVote'})
+      .then(post => dispatch(upVotePost(post)));
+  };
+};
+
+export const downVotePost = (post) => {
+  return {
+    type: DOWNVOTE_POST,
+    post
+  };
+};
+
+export const downVotePostAction = (postId) => {
+  return dispatch => {
+    makePOSTRequest(`posts/${postId}`, { option: 'upVote'})
+      .then(post => dispatch(downVotePost(post)));
+  };
+};

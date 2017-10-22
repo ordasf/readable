@@ -1,9 +1,12 @@
 import {
   ADD_POST,
+  EDIT_POST,
   RECEIVE_CATEGORY_POSTS,
   RECEIVE_POST,
+  DELETE_POST,
+  UPVOTE_POST,
+  DOWNVOTE_POST
 } from '../actions';
-import { DELETE_POST } from '../actions/PostActions';
 
 export function posts(state = [], action) {
   switch (action.type) {
@@ -15,8 +18,19 @@ export function posts(state = [], action) {
       const newState = state.slice();
       newState.push(action.post);
       return newState;
+    case EDIT_POST:
+      // TODO
+      return state;
     case DELETE_POST:
       return state.filter((post) => (post.id !== action.postId));
+    case UPVOTE_POST:
+      // TODO
+      debugger;
+      return state;
+    case DOWNVOTE_POST:
+      // TODO
+      debugger;
+      return state;
     default:
       return state;
   }
