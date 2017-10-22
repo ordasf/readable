@@ -12,7 +12,9 @@ export function posts(state = [], action) {
       return action.post;
     case ADD_POST:
       debugger;
-      return state;
+      const newState = state.slice();
+      newState.push(action.post);
+      return newState;
     default:
       return state;
   }

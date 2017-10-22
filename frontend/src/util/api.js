@@ -1,28 +1,31 @@
 
 const headers = {
   headers: {
-    'Authorization': 'god-god-god'
+    'Authorization': 'god-god-god',
+    'Content-Type': 'application/json'
   }
 };
 
+const SERVER_URL = 'http://localhost:3001';
+
 export function fetchCategories() {
-  return fetch('http://localhost:3001/categories', headers);
+  return fetch(`${SERVER_URL}/categories`, headers);
 }
 
 export function fetchCategoryPosts(category) {
   if (category) {
-    return fetch(`http://localhost:3001/${category}/posts`, headers);
+    return fetch(`${SERVER_URL}/${category}/posts`, headers);
   } else {
-    return fetch(`http://localhost:3001/posts`, headers);
+    return fetch(`${SERVER_URL}/posts`, headers);
   }
 }
 
 export function fetchPost(postId) {
-  return fetch(`http://localhost:3001/posts/${postId}`, headers);
+  return fetch(`${SERVER_URL}/posts/${postId}`, headers);
 }
 
 export function fetchComments(postId) {
-  return fetch(`http://localhost:3001/posts/${postId}/comments`, headers);
+  return fetch(`${SERVER_URL}/posts/${postId}/comments`, headers);
 }
 
 export function addPost(post) {
@@ -31,13 +34,5 @@ export function addPost(post) {
     headers: headers.headers,
     body: JSON.stringify(post)
   };
-  /*let urlParams = '';
-  const paramsObject = Object.entries(post);
-  for (const param of paramsObject) {
-    urlParams = `${urlParams}&${param[0]}=${param[1]}`;
-  }
-  urlParams = urlParams.slice(1);
-  console.log(`http://localhost:3001/posts?${urlParams}`);*/
-  debugger;
-  return fetch(`http://localhost:3001/posts`, init);
+  return fetch(`${SERVER_URL}/posts`, init);
 }

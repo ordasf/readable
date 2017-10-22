@@ -44,8 +44,6 @@ export const fetchPostAction = (postId) => {
 };
 
 export const createPost = (post) => {
-  console.log(post);
-  debugger;
   return {
     type: ADD_POST,
     post: post
@@ -59,14 +57,7 @@ export const createPostAction = (post) => {
     addPost(post)
       .then(response => (response.json()))
       .then(postData => {
-        console.log(postData);
-        debugger;
-        const fullPost = {
-          ...post,
-          voteScore: postData.voteScore,
-          deleted: postData.deleted
-        };
-        dispatch(createPost(fullPost))
+        dispatch(createPost(postData))
       });
   };
 };
