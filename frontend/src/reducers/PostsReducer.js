@@ -11,7 +11,6 @@ export function posts(state = [], action) {
     case RECEIVE_POST:
       return action.post;
     case ADD_POST:
-      debugger;
       const newState = state.slice();
       newState.push(action.post);
       return newState;

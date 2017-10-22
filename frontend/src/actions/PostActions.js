@@ -23,7 +23,6 @@ export const receiveCategoryPosts = (posts) => {
 export const fetchCategoryPostsAction = (category) => {
   return dispatch => {
     fetchCategoryPosts(category)
-      .then(response => response.json())
       .then(posts => dispatch(receiveCategoryPosts(posts)));
   }
 };
@@ -38,7 +37,6 @@ export const receivePost = (post) => {
 export const fetchPostAction = (postId) => {
   return dispatch => {
     fetchPost(postId)
-      .then(response => (response.json()))
       .then(post => dispatch(receivePost(post)));
   };
 };
@@ -51,11 +49,8 @@ export const createPost = (post) => {
 };
 
 export const createPostAction = (post) => {
-  console.log(post);
-  debugger;
   return dispatch => {
     addPost(post)
-      .then(response => (response.json()))
       .then(postData => {
         dispatch(createPost(postData))
       });

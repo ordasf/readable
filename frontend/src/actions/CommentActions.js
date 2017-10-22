@@ -20,7 +20,6 @@ export const receiveComments = (comments) => {
 export const fetchCommentsAction = (postId) => {
   return dispatch => {
     fetchComments(postId)
-      .then(response => (response.json()))
       .then(post => dispatch(receiveComments(post)));
   };
 };

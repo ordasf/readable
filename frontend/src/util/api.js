@@ -9,23 +9,28 @@ const headers = {
 const SERVER_URL = 'http://localhost:3001';
 
 export function fetchCategories() {
-  return fetch(`${SERVER_URL}/categories`, headers);
+  return fetch(`${SERVER_URL}/categories`, headers)
+    .then(response => (response.json()));
 }
 
 export function fetchCategoryPosts(category) {
   if (category) {
-    return fetch(`${SERVER_URL}/${category}/posts`, headers);
+    return fetch(`${SERVER_URL}/${category}/posts`, headers)
+      .then(response => (response.json()));
   } else {
-    return fetch(`${SERVER_URL}/posts`, headers);
+    return fetch(`${SERVER_URL}/posts`, headers)
+      .then(response => (response.json()));
   }
 }
 
 export function fetchPost(postId) {
-  return fetch(`${SERVER_URL}/posts/${postId}`, headers);
+  return fetch(`${SERVER_URL}/posts/${postId}`, headers)
+    .then(response => (response.json()));
 }
 
 export function fetchComments(postId) {
-  return fetch(`${SERVER_URL}/posts/${postId}/comments`, headers);
+  return fetch(`${SERVER_URL}/posts/${postId}/comments`, headers)
+    .then(response => (response.json()));
 }
 
 export function addPost(post) {
@@ -34,5 +39,6 @@ export function addPost(post) {
     headers: headers.headers,
     body: JSON.stringify(post)
   };
-  return fetch(`${SERVER_URL}/posts`, init);
+  return fetch(`${SERVER_URL}/posts`, init)
+    .then(response => (response.json()));
 }

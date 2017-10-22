@@ -14,7 +14,6 @@ export const receiveCategories = ({ categories }) => {
 export const fetchCategoriesAction = () => {
   return dispatch => {
     fetchCategories()
-      .then(response => response.json())
       .then(categories => dispatch(receiveCategories(categories)));
   };
 };
