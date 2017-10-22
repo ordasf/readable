@@ -3,6 +3,7 @@ import {
   RECEIVE_CATEGORY_POSTS,
   RECEIVE_POST,
 } from '../actions';
+import { DELETE_POST } from '../actions/PostActions';
 
 export function posts(state = [], action) {
   switch (action.type) {
@@ -14,6 +15,8 @@ export function posts(state = [], action) {
       const newState = state.slice();
       newState.push(action.post);
       return newState;
+    case DELETE_POST:
+      return state.filter((post) => (post.id !== action.postId));
     default:
       return state;
   }

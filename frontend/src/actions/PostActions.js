@@ -1,6 +1,7 @@
 import {
   makeGETRequest,
-  makePOSTRequest
+  makePOSTRequest,
+  makeDELETERequest
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
@@ -61,4 +62,20 @@ export const createPostAction = (post) => {
         dispatch(createPost(postData))
       });
   };
+};
+
+export const deletePost = (postId) => {
+  return {
+    type: DELETE_POST,
+    postId
+  };
+};
+
+export const deletePostAction = (postId) => {
+  return dispatch => {
+    makeDELETERequest(`posts/${postId}`)
+      .then(() => {
+        dispatch(deletePost(postId));
+      });
+  }
 };
