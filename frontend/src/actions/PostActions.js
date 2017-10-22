@@ -1,6 +1,7 @@
 import {
   fetchCategoryPosts,
-  fetchPost
+  fetchPost,
+  addPost
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
@@ -39,5 +40,33 @@ export const fetchPostAction = (postId) => {
     fetchPost(postId)
       .then(response => (response.json()))
       .then(post => dispatch(receivePost(post)));
+  };
+};
+
+export const createPost = (post) => {
+  console.log(post);
+  debugger;
+  return {
+    type: ADD_POST,
+    post: post
+  };
+};
+
+export const createPostAction = (post) => {
+  console.log(post);
+  debugger;
+  return dispatch => {
+    addPost(post)
+      .then(response => (response.json()))
+      .then(postData => {
+        console.log(postData);
+        debugger;
+        const fullPost = {
+          ...post,
+          voteScore: postData.voteScore,
+          deleted: postData.deleted
+        };
+        dispatch(createPost(fullPost))
+      });
   };
 };

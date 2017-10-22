@@ -9,8 +9,9 @@ export function posts(state = [], action) {
     case RECEIVE_CATEGORY_POSTS:
       return [...state, ...action.posts];
     case RECEIVE_POST:
-      return action.post
+      return action.post;
     case ADD_POST:
+      debugger;
       return state;
     default:
       return state;

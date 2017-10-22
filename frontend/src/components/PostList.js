@@ -1,13 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPostsAction } from '../actions/index';
+import PostForm from './PostForm';
 
 class PostList extends React.Component {
+
+  state = {
+    showAddPostForm: false
+  }
 
   componentDidMount() {
     const { category } = this.props.match.params;
     this.props.dispatch(fetchCategoryPostsAction(category));
   }
+
+  showAddPostForm = () => {
+    this.setState({
+      showEditPostForm: true
+    });
+  };
 
   render() {
     return (
@@ -22,6 +33,8 @@ class PostList extends React.Component {
             );
           })
         }
+        <button onClick={this.showAddPostForm}>Add post</button>
+        {this.state.showEditPostForm && (<PostForm/>)}
       </div>
     );
   }
