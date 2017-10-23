@@ -24,13 +24,9 @@ export function posts(state = [], action) {
     case DELETE_POST:
       return state.filter((post) => (post.id !== action.postId));
     case UPVOTE_POST:
-      // TODO
-      debugger;
-      return state;
+      return [action.post];
     case DOWNVOTE_POST:
-      // TODO
-      debugger;
-      return state;
+      return [action.post];
     default:
       return state;
   }
