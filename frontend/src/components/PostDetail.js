@@ -43,8 +43,9 @@ class PostDetail extends React.Component {
         {
           this.props.posts.map(post => (
             <div key={post.id}>
-              <p>{post.title} by {post.author} at {post.timestamp}</p>
-              <p>{post.body}</p>
+              <h1>{post.title}</h1>
+              <h3>{post.body}</h3>
+              <p>created by <b>{post.author}</b> at <b>{post.timestamp}</b></p>
               <p>Score: {post.voteScore}</p>
               <button onClick={this.showEditPostForm}>Edit</button>
               <button onClick={() => this.deletePost()}>Delete</button>
