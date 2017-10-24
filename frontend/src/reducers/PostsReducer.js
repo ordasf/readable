@@ -19,8 +19,7 @@ export function posts(state = [], action) {
       newState.push(action.post);
       return newState;
     case EDIT_POST:
-      // TODO
-      return state;
+      return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case DELETE_POST:
       return state.filter((post) => (post.id !== action.postId));
     case UPVOTE_POST:

@@ -34,7 +34,7 @@ class PostList extends React.Component {
           })
         }
         <button onClick={this.showAddPostForm}>Add post</button>
-        {this.state.showEditPostForm && (<PostForm/>)}
+        {this.state.showEditPostForm && (<PostForm editMode={false}/>)}
       </div>
     );
   }

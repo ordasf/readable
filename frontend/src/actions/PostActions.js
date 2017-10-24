@@ -1,7 +1,7 @@
 import {
   makeGETRequest,
   makePOSTRequest,
-  makeDELETERequest
+  makeDELETERequest, makePUTRequest
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
@@ -60,6 +60,22 @@ export const createPostAction = (post) => {
     makePOSTRequest('posts', post)
       .then(postData => {
         dispatch(createPost(postData))
+      });
+  };
+};
+
+export const updatePost = (post) => {
+  return {
+    type: EDIT_POST,
+    post
+  };
+};
+
+export const updatePostAction = (postId, updatedPost) => {
+  return dispatch => {
+    makePUTRequest(`posts/${postId}`, updatedPost)
+      .then(postData => {
+        dispatch(updatePost(postData))
       });
   };
 };

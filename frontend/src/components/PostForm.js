@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import { createPostAction } from '../actions/PostActions';
+import { createPostAction, updatePostAction } from '../actions/PostActions';
 
 class PostForm extends React.Component {
 
@@ -18,15 +18,24 @@ class PostForm extends React.Component {
       console.log('Missing values');
       return;
     }
-    const newPost = {
-      id: uuid.v1(),
-      timestamp: Date.now(),
-      title: titleValue,
-      body: bodyValue,
-      author: authorValue,
-      category: categoryValue
-    };
-    this.props.dispatch(createPostAction(newPost));
+    if (this.props.editMode) {
+      const updatedPost = {
+        title: titleValue,
+        body: bodyValue,
+      };
+      this.props.dispatch(updatePostAction(this.props.post.id, updatedPost));
+    } else {
+      const newPost = {
+        id: uuid.v1(),
+        timestamp: Date.now(),
+        title: titleValue,
+        body: bodyValue,
+        author: authorValue,
+        category: categoryValue
+      };
+      this.props.dispatch(createPostAction(newPost));
+    }
+
   };
 
   updateInputValue = (event, input) => {
@@ -45,6 +54,19 @@ class PostForm extends React.Component {
     }))
   };
 
+  componentDidMount() {
+    // Populate the form only if we are in editing mode
+    if (this.props.editMode) {
+      const { post } = this.props;
+      this.setState({
+        titleValue: post.title,
+        bodyValue: post.body,
+        authorValue: post.author,
+        categoryValue: post.category
+      });
+    }
+  }
+
   render() {
     return (
       <div style={{backgroundColor: 'red'}}>
@@ -53,18 +75,21 @@ class PostForm extends React.Component {
             label="title"
             type="text"
             placeholder="Title"
+            value={this.state.titleValue}
             onChange={event => {this.updateInputValue(event, 'titleValue')}}
           />
           <input
             label="body"
             type="text"
             placeholder="Body"
+            value={this.state.bodyValue}
             onChange={event => {this.updateInputValue(event, 'bodyValue')}}
           />
           <input
             label="author"
             type="text"
             placeholder="Author"
+            value={this.state.authorValue}
             onChange={event => {this.updateInputValue(event, 'authorValue')}}
           />
           <select onChange={(event) => {this.updateSelect(event)}}>
@@ -82,6 +107,7 @@ class PostForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    post: state.posts[0],
     categories: state.categories
   };
 }

@@ -51,7 +51,7 @@ class PostDetail extends React.Component {
               <button onClick={() => this.upVotePost()}>Upvote</button>
               <button onClick={() => this.downVotePost()}>Downvote</button>
               {
-                this.state.showEditPostForm && <PostForm/>
+                this.state.showEditPostForm && <PostForm editMode={true}/>
               }
               <CommentList/>
             </div>
