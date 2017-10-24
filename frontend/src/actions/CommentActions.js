@@ -1,5 +1,5 @@
 import {
-  makeGETRequest
+  makeGETRequest, makePOSTRequest
 } from '../util/api';
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
@@ -22,5 +22,20 @@ export const fetchCommentsAction = (postId) => {
   return dispatch => {
     makeGETRequest(query)
       .then(post => dispatch(receiveComments(post)));
+  };
+};
+
+export const createComment = (comment) => {
+  return {
+    type: ADD_COMMENT,
+    comment
+  }
+};
+
+export const createCommentAction = (comment) => {
+  const query = `comments`
+  return dispatch => {
+    makePOSTRequest(query, comment)
+      .then(comment => dispatch(createComment(comment)));
   };
 };

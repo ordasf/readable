@@ -1,12 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCommentsAction } from '../actions';
+import CommentForm from './CommentForm';
 
 class CommentList extends React.Component {
+
+  state = {
+    showCommentForm: false
+  };
 
   componentDidMount() {
     this.props.dispatch(fetchCommentsAction());
   }
+
+  toggleCommentForm = () => {
+    const { showCommentForm } = this.state;
+    this.setState({ showCommentForm: !showCommentForm });
+  };
 
   render() {
     return (
@@ -18,7 +28,10 @@ class CommentList extends React.Component {
             </div>
           ))
         }
-        <button>Add comment</button>
+        <button onClick={() => this.toggleCommentForm()}>Add comment</button>
+        {
+          this.state.showCommentForm && (<CommentForm/>)
+        }
       </div>
     );
   }
