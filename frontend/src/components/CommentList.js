@@ -10,7 +10,7 @@ class CommentList extends React.Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchCommentsAction());
+    this.props.dispatch(fetchCommentsAction(this.props.post.id));
   }
 
   toggleCommentForm = () => {
@@ -21,16 +21,22 @@ class CommentList extends React.Component {
   render() {
     return (
       <div style={{backgroundColor: 'red'}}>
+        <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         {
           this.props.comments.map(comment => (
-            <div>
-              <p>{comment.body} by {comment.author}</p>
+            <div key={comment.id}>
+              <h2>{comment.body}</h2>
+              <p>by <b>{comment.author}</b> at {comment.timestamp}</p>
+              <p>Vote Score: {comment.voteScore}</p>
+              <button>Edit</button>
+              <button>Delete</button>
+              <button>Upvote</button>
+              <button>Downvote</button>
             </div>
           ))
         }
-        <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         {
-          this.state.showCommentForm && (<CommentForm/>)
+          this.state.showCommentForm && (<CommentForm postId={this.props.postId}/>)
         }
       </div>
     );
@@ -40,6 +46,7 @@ class CommentList extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    post: state.posts[0],
     comments: state.comments
   };
 }

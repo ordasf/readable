@@ -11,15 +11,13 @@ class CommentForm extends React.Component {
   };
 
   saveComment = () => {
-    const { body, author } = this.state;
     const newComment = {
       id: uuid.v1(),
       timestamp: Date.now(),
-      body,
-      author,
-      parentId: 1 // TODO
+      body: this.state.bodyValue,
+      author: this.state.authorValue,
+      parentId: this.props.postId
     };
-    debugger;
     this.props.dispatch(createCommentAction(newComment));
   };
 
@@ -37,7 +35,7 @@ class CommentForm extends React.Component {
         <form>
           <input placeholder="Body" onChange={(event) => this.saveInputValue(event, 'bodyValue')}/>
           <input placeholder="Author" onChange={(event) => this.saveInputValue(event, 'authorValue')} />
-          <button onClick={() => this.saveComment()}>Add Comment</button>
+          <button type="button" onClick={() => this.saveComment()}>Add Comment</button>
         </form>
       </div>
     );

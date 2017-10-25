@@ -18,10 +18,9 @@ export const receiveComments = (comments) => {
 };
 
 export const fetchCommentsAction = (postId) => {
-  const query = `posts/${postId}/comments`
   return dispatch => {
-    makeGETRequest(query)
-      .then(post => dispatch(receiveComments(post)));
+    makeGETRequest(`posts/${postId}/comments`)
+      .then(comments => dispatch(receiveComments(comments)));
   };
 };
 
@@ -33,9 +32,10 @@ export const createComment = (comment) => {
 };
 
 export const createCommentAction = (comment) => {
-  const query = `comments`
   return dispatch => {
-    makePOSTRequest(query, comment)
-      .then(comment => dispatch(createComment(comment)));
-  };
+    makePOSTRequest('comments', comment)
+      .then(comment => {
+        dispatch(createComment(comment));
+      });
+  }
 };

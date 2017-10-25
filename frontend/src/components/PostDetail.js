@@ -54,7 +54,7 @@ class PostDetail extends React.Component {
               {
                 this.state.showEditPostForm && <PostForm editMode={true}/>
               }
-              <CommentList/>
+              <CommentList postId={post.id}/>
             </div>
           ))
         }

@@ -20,7 +20,9 @@ export function makePOSTRequest(query, body) {
     body: JSON.stringify(body)
   };
   return fetch(`${SERVER_URL}/${query}`, init)
-    .then(response => (response.json()));
+    .then(response => {
+      return response.json();
+    });
 }
 
 export function makePUTRequest(query, body) {
