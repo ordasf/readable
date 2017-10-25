@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCommentsAction } from '../actions';
+import {
+  fetchCommentsAction,
+  deleteCommentAction,
+  upVoteCommentAction,
+  downVoteCommentAction
+} from '../actions';
 import CommentForm from './CommentForm';
 
 class CommentList extends React.Component {
@@ -18,25 +23,38 @@ class CommentList extends React.Component {
     this.setState({ showCommentForm: !showCommentForm });
   };
 
+  deleteComment = (commentId) => {
+    this.props.dispatch(deleteCommentAction(commentId));
+  };
+
+  upVoteComment = (commentId) => {
+    this.props.dispatch(upVoteCommentAction(commentId));
+  };
+
+  downVoteComment = (commentId) => {
+    this.props.dispatch(downVoteCommentAction(commentId));
+  };
+
   render() {
     return (
       <div style={{backgroundColor: 'red'}}>
         <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         {
+          this.state.showCommentForm && (<CommentForm postId={this.props.postId}/>)
+        }
+        {
           this.props.comments.map(comment => (
             <div key={comment.id}>
+              <h1>{comment.id}</h1>
               <h2>{comment.body}</h2>
               <p>by <b>{comment.author}</b> at {comment.timestamp}</p>
               <p>Vote Score: {comment.voteScore}</p>
               <button>Edit</button>
-              <button>Delete</button>
-              <button>Upvote</button>
-              <button>Downvote</button>
+              <button onClick={() => this.deleteComment(comment.id)}>Delete</button>
+              <button onClick={() => this.upVoteComment(comment.id)}>Upvote</button>
+              <button onClick={() => this.downVoteComment(comment.id)}>Downvote</button>
             </div>
           ))
-        }
-        {
-          this.state.showCommentForm && (<CommentForm postId={this.props.postId}/>)
         }
       </div>
     );

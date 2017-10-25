@@ -1,5 +1,7 @@
 import {
-  makeGETRequest, makePOSTRequest
+  makeGETRequest,
+  makePOSTRequest,
+  makeDELETERequest
 } from '../util/api';
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
@@ -36,6 +38,54 @@ export const createCommentAction = (comment) => {
     makePOSTRequest('comments', comment)
       .then(comment => {
         dispatch(createComment(comment));
+      });
+  }
+};
+
+export const deleteComment = (commentId) => {
+  return {
+    type: DELETE_COMMENT,
+    commentId
+  }
+};
+
+export const deleteCommentAction = (commentId) => {
+  return dispatch => {
+    makeDELETERequest(`comments/${commentId}`)
+      .then(comment => {
+        dispatch(deleteComment(comment.id));
+      });
+  }
+};
+
+export const upVoteComment = (comment) => {
+  return {
+    type: UPVOTE_COMMENT,
+    comment
+  }
+};
+
+export const upVoteCommentAction = (commentId) => {
+  return dispatch => {
+    makePOSTRequest(`comments/${commentId}`, { option: 'upVote'})
+      .then(comment => {
+        dispatch(upVoteComment(comment));
+      });
+  }
+};
+
+export const downVoteComment = (comment) => {
+  return {
+    type: DOWNVOTE_COMMENT,
+    comment
+  }
+};
+
+export const downVoteCommentAction = (commentId) => {
+  return dispatch => {
+    makePOSTRequest(`comments/${commentId}`, { option: 'downVote'})
+      .then(comment => {
+        dispatch(downVoteComment(comment));
       });
   }
 };

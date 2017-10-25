@@ -105,7 +105,7 @@ export const upVotePost = (post) => {
 
 export const upVotePostAction = (postId) => {
   return dispatch => {
-    makePOSTRequest(`posts/${postId}`, { option: 'upVote'})
+    makePOSTRequest(`posts/${postId}`, { option: 'upVote'} )
       .then(post => dispatch(upVotePost(post)));
   };
 };
@@ -119,7 +119,7 @@ export const downVotePost = (post) => {
 
 export const downVotePostAction = (postId) => {
   return dispatch => {
-    makePOSTRequest(`posts/${postId}`, { option: 'downVote'})
+    makePOSTRequest(`posts/${postId}`, { option: 'downVote'} )
       .then(post => dispatch(downVotePost(post)));
   };
 };
