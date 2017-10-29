@@ -13,6 +13,9 @@ export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT';
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT';
 
+export const SORT_COMMENTS_BY_TIME = 'SORT_COMMENTS_BY_TIME';
+export const SORT_COMMENTS_BY_SCORE = 'SORT_COMMENTS_BY_SCORE';
+
 export const receiveComments = (comments) => {
   return {
     type: RECEIVE_COMMENTS,
@@ -105,4 +108,18 @@ export const downVoteCommentAction = (commentId) => {
         dispatch(downVoteComment(comment));
       });
   }
+};
+
+export const sortCommentsByTime = (comments) => {
+  return {
+    type: SORT_COMMENTS_BY_TIME,
+    comments
+  };
+};
+
+export const sortCommentsByScore = (comments) => {
+  return {
+    type: SORT_COMMENTS_BY_SCORE,
+    comments
+  };
 };

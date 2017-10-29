@@ -4,7 +4,9 @@ import {
   fetchCommentsAction,
   deleteCommentAction,
   upVoteCommentAction,
-  downVoteCommentAction
+  downVoteCommentAction,
+  sortCommentsByScore,
+  sortCommentsByTime
 } from '../actions';
 import CommentForm from './CommentForm';
 
@@ -12,7 +14,8 @@ class CommentList extends React.Component {
 
   state = {
     showCommentForm: false,
-    formComment: {}
+    formComment: {},
+    sortType: 'timeSort'
   };
 
   componentDidMount() {
@@ -20,19 +23,19 @@ class CommentList extends React.Component {
   }
 
   toggleCommentForm = () => {
-    const { showCommentForm } = this.state;
-    this.setState({
-      showCommentForm: !showCommentForm,
+    this.setState(state => ({
+      ...state,
+      showCommentForm: !state.showCommentForm,
       formComment: { parentId: this.props.post.id }
-    });
+    }));
   };
 
   showEditCommentForm = (comment) => {
-    const { showCommentForm } = this.state;
-    this.setState({
-      showCommentForm: !showCommentForm,
+    this.setState(state => ({
+      ...state,
+      showCommentForm: !state.showCommentForm,
       formComment: comment
-    });
+    }));
   };
 
   deleteComment = (commentId) => {
@@ -47,10 +50,30 @@ class CommentList extends React.Component {
     this.props.dispatch(downVoteCommentAction(commentId));
   };
 
+  changeSortOrder = (newSortType) => {
+    this.sortComments(newSortType);
+    this.setState(state => ({
+      ...state,
+      sortType: newSortType
+    }));
+  };
+
+  sortComments = (sortType) => {
+    if (sortType === 'timeSort') {
+      this.props.dispatch(sortCommentsByTime(this.props.comments));
+    } else {
+      this.props.dispatch(sortCommentsByScore(this.props.comments));
+    }
+  };
+
   render() {
     return (
       <div style={{backgroundColor: 'red'}}>
         <button onClick={() => this.toggleCommentForm()}>Add comment</button>
+        <select defaultValue={this.state.sortType} onChange={(event) => this.changeSortOrder(event.target.value)}>
+          <option value="timeSort">Sort by Time</option>
+          <option value="scoreSort">Sort by Score</option>
+        </select>
         {
           this.state.showCommentForm && (<CommentForm comment={this.state.formComment}/>)
         }
