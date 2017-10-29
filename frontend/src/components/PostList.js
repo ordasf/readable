@@ -56,7 +56,6 @@ class PostList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  debugger;
   return {
     posts: state.posts
   }
