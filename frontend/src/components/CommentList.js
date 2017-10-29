@@ -9,6 +9,7 @@ import {
   sortCommentsByTime
 } from '../actions';
 import CommentForm from './CommentForm';
+import { convertDate } from '../util/helper';
 
 class CommentList extends React.Component {
 
@@ -80,9 +81,8 @@ class CommentList extends React.Component {
         {
           this.props.comments.map(comment => (
             <div key={comment.id}>
-              <h1>{comment.id}</h1>
               <h2>{comment.body}</h2>
-              <p>by <b>{comment.author}</b> at {comment.timestamp}</p>
+              <p>by <b>{comment.author}</b> at {convertDate(comment.timestamp)}</p>
               <p>Vote Score: {comment.voteScore}</p>
               <button onClick={() => this.showEditCommentForm(comment)}>Edit</button>
               <button onClick={() => this.deleteComment(comment.id)}>Delete</button>

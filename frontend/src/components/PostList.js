@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCategoryPostsAction, sortPostsByTimeAction, sortPostsByTimeScore } from '../actions/index';
+import {
+  fetchCategoryPostsAction,
+  sortPostsByTimeAction,
+  sortPostsByTimeScore
+} from '../actions/index';
 import PostForm from './PostForm';
+import { convertDate } from '../util/helper';
 
 class PostList extends React.Component {
 
@@ -39,7 +44,8 @@ class PostList extends React.Component {
               <div key={post.id}>
                 <h3><a href={`${post.category}/${post.id}`}>{post.title}</a></h3>
                 <h5>{post.author}</h5>
-                <p>voteScore: {post.voteScore} - time: {post.timestamp}</p>
+                <p>voteScore: {post.voteScore}</p>
+                <p>{convertDate(post.timestamp)}</p>
               </div>
             );
           })
