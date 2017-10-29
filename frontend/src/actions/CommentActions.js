@@ -1,7 +1,8 @@
 import {
   makeGETRequest,
   makePOSTRequest,
-  makeDELETERequest
+  makeDELETERequest,
+  makePUTRequest
 } from '../util/api';
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
@@ -38,6 +39,22 @@ export const createCommentAction = (comment) => {
     makePOSTRequest('comments', comment)
       .then(comment => {
         dispatch(createComment(comment));
+      });
+  }
+};
+
+export const editComment = (comment) => {
+  return {
+    type: EDIT_COMMENT,
+    comment
+  }
+};
+
+export const editCommentAction = (comment) => {
+  return dispatch => {
+    makePUTRequest(`comments/${comment.id}`, comment)
+      .then(comment => {
+        dispatch(editComment(comment));
       });
   }
 };

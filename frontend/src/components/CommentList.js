@@ -11,7 +11,8 @@ import CommentForm from './CommentForm';
 class CommentList extends React.Component {
 
   state = {
-    showCommentForm: false
+    showCommentForm: false,
+    formComment: {}
   };
 
   componentDidMount() {
@@ -20,7 +21,18 @@ class CommentList extends React.Component {
 
   toggleCommentForm = () => {
     const { showCommentForm } = this.state;
-    this.setState({ showCommentForm: !showCommentForm });
+    this.setState({
+      showCommentForm: !showCommentForm,
+      formComment: { parentId: this.props.post.id }
+    });
+  };
+
+  showEditCommentForm = (comment) => {
+    const { showCommentForm } = this.state;
+    this.setState({
+      showCommentForm: !showCommentForm,
+      formComment: comment
+    });
   };
 
   deleteComment = (commentId) => {
@@ -40,7 +52,7 @@ class CommentList extends React.Component {
       <div style={{backgroundColor: 'red'}}>
         <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         {
-          this.state.showCommentForm && (<CommentForm postId={this.props.postId}/>)
+          this.state.showCommentForm && (<CommentForm comment={this.state.formComment}/>)
         }
         {
           this.props.comments.map(comment => (
@@ -49,7 +61,7 @@ class CommentList extends React.Component {
               <h2>{comment.body}</h2>
               <p>by <b>{comment.author}</b> at {comment.timestamp}</p>
               <p>Vote Score: {comment.voteScore}</p>
-              <button>Edit</button>
+              <button onClick={() => this.showEditCommentForm(comment)}>Edit</button>
               <button onClick={() => this.deleteComment(comment.id)}>Delete</button>
               <button onClick={() => this.upVoteComment(comment.id)}>Upvote</button>
               <button onClick={() => this.downVoteComment(comment.id)}>Downvote</button>

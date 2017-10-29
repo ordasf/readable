@@ -14,8 +14,7 @@ export function comments(state = [], action) {
     case ADD_COMMENT:
       return [...state, action.comment];
     case EDIT_COMMENT:
-      // TODO
-      return state;
+      return state.map(comment => (comment.id === action.comment.id ? action.comment : comment));
     case DELETE_COMMENT:
       return state.filter(comment => (comment.id !== action.commentId));
     case UPVOTE_COMMENT:
