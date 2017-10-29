@@ -13,6 +13,9 @@ export const EDIT_POST = 'EDIT_POST';
 export const UPVOTE_POST = 'UPVOTE_POST';
 export const DOWNVOTE_POST = 'DOWNVOTE_POST';
 
+export const SORT_POSTS_BY_TIME = 'SORT_POSTS_BY_TIME';
+export const SORT_POSTS_BY_SCORE = 'SORT_POSTS_BY_SCORE';
+
 export const receiveCategoryPosts = (posts) => {
   return {
     type: RECEIVE_CATEGORY_POSTS,
@@ -121,5 +124,19 @@ export const downVotePostAction = (postId) => {
   return dispatch => {
     makePOSTRequest(`posts/${postId}`, { option: 'downVote'} )
       .then(post => dispatch(downVotePost(post)));
+  };
+};
+
+export const sortPostsByTimeAction = (posts) => {
+  return {
+    type: SORT_POSTS_BY_TIME,
+    posts
+  };
+};
+
+export const sortPostsByTimeScore = (posts) => {
+  return {
+    type: SORT_POSTS_BY_SCORE,
+    posts
   };
 };
