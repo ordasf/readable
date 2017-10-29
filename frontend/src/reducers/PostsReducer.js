@@ -5,7 +5,9 @@ import {
   RECEIVE_POST,
   DELETE_POST,
   UPVOTE_POST,
-  DOWNVOTE_POST
+  DOWNVOTE_POST,
+  SORT_POSTS_BY_TIME,
+  SORT_POSTS_BY_SCORE
 } from '../actions';
 
 export function posts(state = [], action) {
@@ -26,6 +28,10 @@ export function posts(state = [], action) {
       return [action.post];
     case DOWNVOTE_POST:
       return [action.post];
+    case SORT_POSTS_BY_TIME:
+      return action.posts.slice().sort((post1, post2) => (post1.timestamp - post2.timestamp));
+    case SORT_POSTS_BY_SCORE:
+      return action.posts.slice().sort((post1, post2) => (post2.voteScore - post1.voteScore));
     default:
       return state;
   }
