@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   fetchCategoryPostsAction,
   sortPostsByTimeAction,
-  sortPostsByTimeScore
+  sortPostsByTimeScore,
+  upVotePostAction,
+  downVotePostAction
 } from '../actions/index';
 import PostForm from './PostForm';
 import { convertDate } from '../util/helper';
@@ -12,7 +14,7 @@ class PostList extends React.Component {
 
   state = {
     showAddPostForm: false,
-    orderType: 'timeSort'
+    orderType: 'scoreSort'
   };
 
   componentDidMount() {
@@ -35,9 +37,23 @@ class PostList extends React.Component {
     }
   };
 
+  upVotePost = (postId) => {
+    this.props.dispatch(upVotePostAction(postId));
+  };
+
+  downVotePost = (postId) => {
+    this.props.dispatch(downVotePostAction(postId));
+  };
+
   render() {
     return (
       <div style={{backgroundColor: 'gainsboro'}}>
+        <button onClick={this.showAddPostForm}>Add post</button>
+        <select defaultValue={this.state.orderType} onChange={(event) => this.changeSorting(event)}>
+          <option value="timeSort">Sort by Time</option>
+          <option value="scoreSort">Sort by Score</option>
+        </select>
+        {this.state.showEditPostForm && (<PostForm editMode={false}/>)}
         {
           this.props.posts.map((post) => {
             return (
@@ -46,16 +62,12 @@ class PostList extends React.Component {
                 <h5>{post.author}</h5>
                 <p>voteScore: {post.voteScore}</p>
                 <p>{convertDate(post.timestamp)}</p>
+                <button onClick={() => this.upVotePost(post.id)}>Upvote</button>
+                <button onClick={() => this.downVotePost(post.id)}>Downvote</button>
               </div>
             );
           })
         }
-        <button onClick={this.showAddPostForm}>Add post</button>
-        <select defaultValue={this.state.orderType} onChange={(event) => this.changeSorting(event)}>
-          <option value="timeSort">Sort by Time</option>
-          <option value="scoreSort">Sort by Score</option>
-        </select>
-        {this.state.showEditPostForm && (<PostForm editMode={false}/>)}
       </div>
     );
   }
