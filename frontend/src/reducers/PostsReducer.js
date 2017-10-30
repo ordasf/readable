@@ -17,17 +17,15 @@ export function posts(state = [], action) {
     case RECEIVE_POST:
       return action.post;
     case ADD_POST:
-      const newState = state.slice();
-      newState.push(action.post);
-      return newState;
+      return state.slice().push(action.post);
     case EDIT_POST:
       return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case DELETE_POST:
       return state.filter((post) => (post.id !== action.postId));
     case UPVOTE_POST:
-      return [action.post];
+      return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case DOWNVOTE_POST:
-      return [action.post];
+      return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case SORT_POSTS_BY_TIME:
       return action.posts.slice().sort((post1, post2) => (post1.timestamp - post2.timestamp));
     case SORT_POSTS_BY_SCORE:
