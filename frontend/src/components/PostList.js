@@ -50,7 +50,7 @@ class PostList extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'gainsboro'}}>
+      <div>
         <button onClick={this.togglePostFormModal}>Add post</button>
         <select defaultValue={this.state.orderType} onChange={(event) => this.changeSorting(event)}>
           <option value="timeSort">Sort by Time</option>
@@ -65,7 +65,7 @@ class PostList extends React.Component {
         {
           this.props.posts.map((post) => {
             return (
-              <div key={post.id}>
+              <div key={post.id} style={postListElementStyle}>
                 <h3><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></h3>
                 <h5>{post.author}</h5>
                 <p>voteScore: {post.voteScore}</p>
@@ -90,6 +90,10 @@ function mapStateToProps(state) {
 const modalStyles = {
   overlay: {},
   content: { textAlign: 'center' }
+};
+
+const postListElementStyle = {
+  backgroundColor: 'gainsboro'
 };
 
 export default connect(mapStateToProps)(PostList);

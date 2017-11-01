@@ -42,10 +42,10 @@ class PostDetail extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'darksalmon'}}>
+      <div>
         {
           this.props.posts.map(post => (
-            <div key={post.id}>
+            <div key={post.id} style={{backgroundColor: 'darksalmon'}}>
               <h1>{post.title}</h1>
               <h3>{post.body}</h3>
               <p>created by <b>{post.author}</b> at <b>{convertDate(post.timestamp)}</b></p>

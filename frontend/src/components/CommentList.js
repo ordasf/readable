@@ -77,7 +77,7 @@ class CommentList extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div style={{backgroundColor: 'white'}}>
         <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         <select defaultValue={this.state.sortType} onChange={(event) => this.changeSortOrder(event.target.value)}>
           <option value="timeSort">Sort by Time</option>
@@ -88,7 +88,7 @@ class CommentList extends React.Component {
         </Modal>
         {
           this.props.comments.map(comment => (
-            <div key={comment.id}>
+            <div key={comment.id} style={{backgroundColor: 'red'}}>
               <h2>{comment.body}</h2>
               <p>by <b>{comment.author}</b> at {convertDate(comment.timestamp)}</p>
               <p>Vote Score: {comment.voteScore}</p>

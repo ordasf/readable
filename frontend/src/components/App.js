@@ -21,7 +21,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title"><Link to="/">Readable!</Link></h1>
         </header>
-        <div>
+        <div style={bodyStyle}>
           <Categories/>
           <Route exact path={`/`} component={PostList} />
           <Route exact path={`/:category`} component={PostList} />
@@ -38,5 +38,10 @@ function mapStateToProps(state) {
     posts: state.posts
   };
 }
+
+const bodyStyle = {
+  marginLeft: '10%',
+  marginRight: '10%'
+};
 
 export default withRouter(connect(mapStateToProps)(App));
