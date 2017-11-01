@@ -4,7 +4,7 @@ import logo from '../logo.svg';
 import '../App.css';
 import { fetchCategoriesAction } from '../actions';
 import { Route } from 'react-router-dom';
-import Categories from './Categories';
+import Categories from './CategoryList';
 import PostList from './PostList';
 import PostDetail from './PostDetail'
 

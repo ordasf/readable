@@ -17,7 +17,9 @@ export function posts(state = [], action) {
     case RECEIVE_POST:
       return action.post;
     case ADD_POST:
-      return state.slice().push(action.post);
+      const newState = state.slice();
+      newState.push(action.post);
+      return newState;
     case EDIT_POST:
       return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case DELETE_POST:
