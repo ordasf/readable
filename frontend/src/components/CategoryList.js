@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 class CategoryList extends React.Component {
 
   goToCategory = (categoryPath) => {
-    debugger;
     this.props.history.push(`/${categoryPath}`);
   };
 
