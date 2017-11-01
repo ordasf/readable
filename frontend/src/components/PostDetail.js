@@ -48,6 +48,7 @@ class PostDetail extends React.Component {
               <h3>{post.body}</h3>
               <p>created by <b>{post.author}</b> at <b>{convertDate(post.timestamp)}</b></p>
               <p>Score: {post.voteScore}</p>
+              <p>Number of comments: {this.props.comments.length}</p>
               <button onClick={this.showEditPostForm}>Edit</button>
               <button onClick={() => this.deletePost()}>Delete</button>
               <button onClick={() => this.upVotePost()}>Upvote</button>
@@ -66,7 +67,8 @@ class PostDetail extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts
+    posts: state.posts,
+    comments: state.comments
   }
 }
 

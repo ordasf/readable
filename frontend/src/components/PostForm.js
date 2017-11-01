@@ -90,15 +90,20 @@ class PostForm extends React.Component {
             type="text"
             placeholder="Author"
             value={this.state.authorValue}
+            disabled={this.props.editMode}
             onChange={event => {this.updateInputValue(event, 'authorValue')}}
           />
-          <select onChange={(event) => {this.updateSelect(event)}}>
-            <option defaultValue value="">-</option>
+          <select
+            value={this.props.editMode ? this.state.categoryValue : ''}
+            onChange={(event) => {this.updateSelect(event)}}
+            disabled={this.props.editMode}
+          >
+            <option value="">-</option>
             {this.props.categories.map(category => (
               <option key={category.path} value={category.path}>{category.name}</option>
             ))}
           </select>
-          <button type="button" onClick={this.savePost}>Accept</button>
+          <button type="button" onClick={this.savePost}>Ok!</button>
         </form>
       </div>
     );
