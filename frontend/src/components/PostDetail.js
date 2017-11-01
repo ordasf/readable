@@ -8,6 +8,7 @@ import {
 } from '../actions/index';
 import PostForm from './PostForm';
 import CommentList from './CommentList';
+import { convertDate } from '../util/helper';
 
 class PostDetail extends React.Component {
 
@@ -45,7 +46,7 @@ class PostDetail extends React.Component {
             <div key={post.id}>
               <h1>{post.title}</h1>
               <h3>{post.body}</h3>
-              <p>created by <b>{post.author}</b> at <b>{post.timestamp}</b></p>
+              <p>created by <b>{post.author}</b> at <b>{convertDate(post.timestamp)}</b></p>
               <p>Score: {post.voteScore}</p>
               <button onClick={this.showEditPostForm}>Edit</button>
               <button onClick={() => this.deletePost()}>Delete</button>
