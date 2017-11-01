@@ -1,12 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class CategoryList extends React.Component {
-
-  goToCategory = (categoryPath) => {
-    this.props.history.push(`/${categoryPath}`);
-  };
 
   render() {
     return (
@@ -14,7 +10,7 @@ class CategoryList extends React.Component {
         {
           this.props.categories.map((category) => (
             <p key={category.path}>
-              <button onClick={() => this.goToCategory(category.path)}>{category.name}</button>
+              <Link to={`/${category.path}`}>{category.name}</Link>
             </p>
           ))
         }
@@ -29,4 +25,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(CategoryList));
+export default connect(mapStateToProps)(CategoryList);

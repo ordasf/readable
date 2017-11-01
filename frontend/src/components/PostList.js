@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   fetchCategoryPostsAction,
   sortPostsByTimeAction,
@@ -58,7 +59,7 @@ class PostList extends React.Component {
           this.props.posts.map((post) => {
             return (
               <div key={post.id}>
-                <h3><a href={`${post.category}/${post.id}`}>{post.title}</a></h3>
+                <h3><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></h3>
                 <h5>{post.author}</h5>
                 <p>voteScore: {post.voteScore}</p>
                 <p>{convertDate(post.timestamp)}</p>

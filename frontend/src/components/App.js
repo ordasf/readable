@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import logo from '../logo.svg';
 import '../App.css';
 import { fetchCategoriesAction } from '../actions';
-import { Route } from 'react-router-dom';
+import { Route, withRouter, Link } from 'react-router-dom';
 import Categories from './CategoryList';
 import PostList from './PostList';
 import PostDetail from './PostDetail'
@@ -19,7 +19,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Readable!</h1>
+          <h1 className="App-title"><Link to="/">Readable!</Link></h1>
         </header>
         <div>
           <Categories/>
@@ -39,4 +39,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
