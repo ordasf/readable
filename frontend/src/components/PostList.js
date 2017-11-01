@@ -56,10 +56,7 @@ class PostList extends React.Component {
           <option value="timeSort">Sort by Time</option>
           <option value="scoreSort">Sort by Score</option>
         </select>
-        <Modal
-          isOpen={this.state.showAddPostForm}
-          style={modalStyles}
-        >
+        <Modal isOpen={this.state.showAddPostForm} style={modalStyles}>
           <PostForm editMode={false} togglePostFormModal={this.togglePostFormModal}/>
         </Modal>
         {

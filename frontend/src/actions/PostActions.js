@@ -5,7 +5,7 @@ import {
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
-export const RECEIVE_POST = 'RECEIVE_POSTS';
+export const RECEIVE_POST = 'RECEIVE_POST';
 
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';

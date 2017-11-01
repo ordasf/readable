@@ -21,7 +21,7 @@ class CommentList extends React.Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchCommentsAction(this.props.post.id));
+    this.props.dispatch(fetchCommentsAction(this.props.postId));
   }
 
   toggleCommentForm = () => {
