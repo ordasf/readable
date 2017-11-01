@@ -16,7 +16,7 @@ class CommentList extends React.Component {
   state = {
     showCommentForm: false,
     formComment: {},
-    sortType: 'timeSort'
+    sortType: 'scoreSort'
   };
 
   componentDidMount() {
