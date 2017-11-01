@@ -35,7 +35,7 @@ class PostForm extends React.Component {
       };
       this.props.dispatch(createPostAction(newPost));
     }
-
+    this.props.togglePostFormModal();
   };
 
   updateInputValue = (event, input) => {
@@ -69,32 +69,32 @@ class PostForm extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div style={{}}>
         <form>
-          <input
+          <p><input
             label="title"
             type="text"
             placeholder="Title"
             value={this.state.titleValue}
             onChange={event => {this.updateInputValue(event, 'titleValue')}}
-          />
-          <input
+          /></p>
+          <p><input
             label="body"
             type="text"
             placeholder="Body"
             value={this.state.bodyValue}
             onChange={event => {this.updateInputValue(event, 'bodyValue')}}
-          />
-          <input
+          /></p>
+          <p><input
             label="author"
             type="text"
             placeholder="Author"
             value={this.state.authorValue}
             disabled={this.props.editMode}
             onChange={event => {this.updateInputValue(event, 'authorValue')}}
-          />
-          <select
-            value={this.props.editMode ? this.state.categoryValue : ''}
+          /></p>
+          <p><select
+            value={this.state.categoryValue}
             onChange={(event) => {this.updateSelect(event)}}
             disabled={this.props.editMode}
           >
@@ -102,8 +102,9 @@ class PostForm extends React.Component {
             {this.props.categories.map(category => (
               <option key={category.path} value={category.path}>{category.name}</option>
             ))}
-          </select>
-          <button type="button" onClick={this.savePost}>Ok!</button>
+          </select></p>
+          <button type="button" onClick={this.savePost}>Save</button>
+          <button type="button" onClick={() => this.props.togglePostFormModal()}>Cancel</button>
         </form>
       </div>
     );

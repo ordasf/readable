@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 import {
   fetchCategoryPostsAction,
   sortPostsByTimeAction,
@@ -23,9 +24,10 @@ class PostList extends React.Component {
     this.props.dispatch(fetchCategoryPostsAction(category));
   }
 
-  showAddPostForm = () => {
+  togglePostFormModal = () => {
+    const showAddPostForm = this.state.showAddPostForm;
     this.setState({
-      showEditPostForm: true
+      showAddPostForm: !showAddPostForm
     });
   };
 
@@ -49,12 +51,17 @@ class PostList extends React.Component {
   render() {
     return (
       <div style={{backgroundColor: 'gainsboro'}}>
-        <button onClick={this.showAddPostForm}>Add post</button>
+        <button onClick={this.togglePostFormModal}>Add post</button>
         <select defaultValue={this.state.orderType} onChange={(event) => this.changeSorting(event)}>
           <option value="timeSort">Sort by Time</option>
           <option value="scoreSort">Sort by Score</option>
         </select>
-        {this.state.showEditPostForm && (<PostForm editMode={false}/>)}
+        <Modal
+          isOpen={this.state.showAddPostForm}
+          style={modalStyles}
+        >
+          <PostForm editMode={false} togglePostFormModal={this.togglePostFormModal}/>
+        </Modal>
         {
           this.props.posts.map((post) => {
             return (
@@ -79,5 +86,10 @@ function mapStateToProps(state) {
     posts: state.posts
   }
 }
+
+const modalStyles = {
+  overlay: {},
+  content: { textAlign: 'center' }
+};
 
 export default connect(mapStateToProps)(PostList);

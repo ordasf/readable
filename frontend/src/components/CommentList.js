@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import {
   fetchCommentsAction,
   deleteCommentAction,
@@ -39,6 +40,13 @@ class CommentList extends React.Component {
     }));
   };
 
+  closeCommentFormModal = () => {
+    this.setState(state => ({
+      ...state,
+      showCommentForm: false
+    }));
+  };
+
   deleteComment = (commentId) => {
     this.props.dispatch(deleteCommentAction(commentId));
   };
@@ -75,9 +83,9 @@ class CommentList extends React.Component {
           <option value="timeSort">Sort by Time</option>
           <option value="scoreSort">Sort by Score</option>
         </select>
-        {
-          this.state.showCommentForm && (<CommentForm comment={this.state.formComment}/>)
-        }
+        <Modal isOpen={this.state.showCommentForm} style={modalStyles}>
+          <CommentForm comment={this.state.formComment} closeCommentFormModal={this.closeCommentFormModal}/>
+        </Modal>
         {
           this.props.comments.map(comment => (
             <div key={comment.id}>
@@ -102,6 +110,12 @@ function mapStateToProps(state) {
     post: state.posts[0],
     comments: state.comments
   };
+
 }
+
+const modalStyles = {
+  overlay: {},
+  content: { textAlign: 'center' }
+};
 
 export default connect(mapStateToProps)(CommentList);
