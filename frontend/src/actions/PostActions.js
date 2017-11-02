@@ -5,7 +5,6 @@ import {
 } from '../util/api';
 
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
-export const RECEIVE_POST = 'RECEIVE_POST';
 
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
@@ -34,21 +33,6 @@ export const fetchCategoryPostsAction = (category) => {
     makeGETRequest(query)
       .then(posts => dispatch(receiveCategoryPosts(posts)));
   }
-};
-
-export const receivePost = (post) => {
-  return {
-    type: RECEIVE_POST,
-    post: [post]
-  };
-};
-
-export const fetchPostAction = (postId) => {
-  const query = `posts/${postId}`;
-  return dispatch => {
-    makeGETRequest(query)
-      .then(post => dispatch(receivePost(post)));
-  };
 };
 
 export const createPost = (post) => {

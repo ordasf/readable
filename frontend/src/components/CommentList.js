@@ -21,7 +21,9 @@ class CommentList extends React.Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchCommentsAction(this.props.postId));
+    if (this.props.currentPost && this.props.currentPost.id !== '') {
+      this.props.dispatch(fetchCommentsAction(this.props.currentPost.id));
+    }
   }
 
   toggleCommentForm = () => {
@@ -108,7 +110,8 @@ class CommentList extends React.Component {
 function mapStateToProps(state) {
   return {
     post: state.posts[0],
-    comments: state.comments
+    comments: state.comments,
+    currentPost: state.currentPost
   };
 
 }

@@ -2,7 +2,6 @@ import {
   ADD_POST,
   EDIT_POST,
   RECEIVE_CATEGORY_POSTS,
-  RECEIVE_POST,
   DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
@@ -14,8 +13,6 @@ export function posts(state = [], action) {
   switch (action.type) {
     case RECEIVE_CATEGORY_POSTS:
       return action.posts.slice().sort((post1, post2) => (post2.voteScore - post1.voteScore));
-    case RECEIVE_POST:
-      return action.post;
     case ADD_POST:
       const newState = state.slice();
       newState.push(action.post);

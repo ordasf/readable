@@ -12,6 +12,19 @@ class PostForm extends React.Component {
     categoryValue: ''
   };
 
+  componentDidMount() {
+    // Populate the form only if we are in editing mode
+    if (this.props.editMode) {
+      const post = this.props.currentPost;
+      this.setState({
+        titleValue: post.title,
+        bodyValue: post.body,
+        authorValue: post.author,
+        categoryValue: post.category
+      });
+    }
+  }
+
   savePost = () => {
     const { titleValue, bodyValue, authorValue, categoryValue } = this.state;
     if (titleValue === '' || bodyValue === '' || authorValue === '' || categoryValue === '') {
@@ -23,7 +36,7 @@ class PostForm extends React.Component {
         title: titleValue,
         body: bodyValue,
       };
-      this.props.dispatch(updatePostAction(this.props.post.id, updatedPost));
+      this.props.dispatch(updatePostAction(this.props.currentPost.id, updatedPost));
     } else {
       const newPost = {
         id: uuid.v1(),
@@ -53,19 +66,6 @@ class PostForm extends React.Component {
       categoryValue: newValue
     }))
   };
-
-  componentDidMount() {
-    // Populate the form only if we are in editing mode
-    if (this.props.editMode) {
-      const { post } = this.props;
-      this.setState({
-        titleValue: post.title,
-        bodyValue: post.body,
-        authorValue: post.author,
-        categoryValue: post.category
-      });
-    }
-  }
 
   render() {
     return (
@@ -114,7 +114,8 @@ class PostForm extends React.Component {
 function mapStateToProps(state) {
   return {
     post: state.posts[0],
-    categories: state.categories
+    categories: state.categories,
+    currentPost: state.currentPost
   };
 }
 

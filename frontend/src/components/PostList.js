@@ -43,9 +43,10 @@ class PostList extends React.Component {
 
   togglePostFormModal = () => {
     const showAddPostForm = this.state.showAddPostForm;
-    this.setState({
+    this.setState(state => ({
+      ...state,
       showAddPostForm: !showAddPostForm
-    });
+    }));
   };
 
   changeSorting = (event) => {
