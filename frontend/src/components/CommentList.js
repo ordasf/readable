@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import {
   fetchCommentsAction,
   deleteCommentAction,
@@ -16,11 +17,13 @@ class CommentList extends React.Component {
   state = {
     showCommentForm: false,
     formComment: {},
-    sortType: 'timeSort'
+    sortType: 'scoreSort'
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchCommentsAction(this.props.post.id));
+    if (this.props.currentPost && this.props.currentPost.id !== '') {
+      this.props.dispatch(fetchCommentsAction(this.props.currentPost.id));
+    }
   }
 
   toggleCommentForm = () => {
@@ -36,6 +39,13 @@ class CommentList extends React.Component {
       ...state,
       showCommentForm: !state.showCommentForm,
       formComment: comment
+    }));
+  };
+
+  closeCommentFormModal = () => {
+    this.setState(state => ({
+      ...state,
+      showCommentForm: false
     }));
   };
 
@@ -69,18 +79,18 @@ class CommentList extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div style={{backgroundColor: 'white'}}>
         <button onClick={() => this.toggleCommentForm()}>Add comment</button>
         <select defaultValue={this.state.sortType} onChange={(event) => this.changeSortOrder(event.target.value)}>
           <option value="timeSort">Sort by Time</option>
           <option value="scoreSort">Sort by Score</option>
         </select>
-        {
-          this.state.showCommentForm && (<CommentForm comment={this.state.formComment}/>)
-        }
+        <Modal isOpen={this.state.showCommentForm} style={modalStyles}>
+          <CommentForm comment={this.state.formComment} closeCommentFormModal={this.closeCommentFormModal}/>
+        </Modal>
         {
           this.props.comments.map(comment => (
-            <div key={comment.id}>
+            <div key={comment.id} style={{backgroundColor: 'red'}}>
               <h2>{comment.body}</h2>
               <p>by <b>{comment.author}</b> at {convertDate(comment.timestamp)}</p>
               <p>Vote Score: {comment.voteScore}</p>
@@ -100,8 +110,15 @@ class CommentList extends React.Component {
 function mapStateToProps(state) {
   return {
     post: state.posts[0],
-    comments: state.comments
+    comments: state.comments,
+    currentPost: state.currentPost
   };
+
 }
+
+const modalStyles = {
+  overlay: {},
+  content: { textAlign: 'center' }
+};
 
 export default connect(mapStateToProps)(CommentList);

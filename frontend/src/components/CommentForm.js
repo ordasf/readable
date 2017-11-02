@@ -39,6 +39,7 @@ class CommentForm extends React.Component {
       };
       this.props.dispatch(createCommentAction(newComment));
     }
+    this.props.closeCommentFormModal();
   };
 
   saveInputValue = (event, inputType) => {
@@ -51,21 +52,22 @@ class CommentForm extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: 'blue'}}>
+      <div style={{}}>
         <form>
-          <input
+          <p><input
             type="text"
             placeholder="Body"
             value={this.state.bodyValue}
             onChange={(event) => this.saveInputValue(event, 'bodyValue')}
-          />
-          <input
+          /></p>
+          <p><input
             type="text"
             placeholder="Author"
             value={this.state.authorValue}
             onChange={(event) => this.saveInputValue(event, 'authorValue')}
-          />
+          /></p>
           <button type="button" onClick={() => this.saveComment()}>Save</button>
+          <button type="button" onClick={() => this.props.closeCommentFormModal()}>Cancel</button>
         </form>
       </div>
     );

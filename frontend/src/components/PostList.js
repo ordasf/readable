@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
 import {
   fetchCategoryPostsAction,
   sortPostsByTimeAction,
@@ -14,18 +16,37 @@ class PostList extends React.Component {
 
   state = {
     showAddPostForm: false,
-    orderType: 'scoreSort'
+    orderType: 'scoreSort',
+    currentCategory: null
   };
 
   componentDidMount() {
     const { category } = this.props.match.params;
+    this.setState(state => ({
+      ...state,
+      currentCategory: category ? category : null
+    }));
     this.props.dispatch(fetchCategoryPostsAction(category));
   }
 
-  showAddPostForm = () => {
-    this.setState({
-      showEditPostForm: true
-    });
+  componentWillReceiveProps(nextProps) {
+    let category = nextProps.match.params.category;
+    category = category ? category : null;
+    if (this.state.currentCategory !== category) {
+      this.setState(state => ({
+        ...state,
+        currentCategory: category
+      }));
+      this.props.dispatch(fetchCategoryPostsAction(category));
+    }
+  }
+
+  togglePostFormModal = () => {
+    const showAddPostForm = this.state.showAddPostForm;
+    this.setState(state => ({
+      ...state,
+      showAddPostForm: !showAddPostForm
+    }));
   };
 
   changeSorting = (event) => {
@@ -47,18 +68,20 @@ class PostList extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: 'gainsboro'}}>
-        <button onClick={this.showAddPostForm}>Add post</button>
+      <div>
+        <button onClick={this.togglePostFormModal}>Add post</button>
         <select defaultValue={this.state.orderType} onChange={(event) => this.changeSorting(event)}>
           <option value="timeSort">Sort by Time</option>
           <option value="scoreSort">Sort by Score</option>
         </select>
-        {this.state.showEditPostForm && (<PostForm editMode={false}/>)}
+        <Modal isOpen={this.state.showAddPostForm} style={modalStyles}>
+          <PostForm editMode={false} togglePostFormModal={this.togglePostFormModal}/>
+        </Modal>
         {
           this.props.posts.map((post) => {
             return (
-              <div key={post.id}>
-                <h3><a href={`${post.category}/${post.id}`}>{post.title}</a></h3>
+              <div key={post.id} style={postListElementStyle}>
+                <h3><Link to={`/${post.category}/${post.id}`}>{post.title}</Link></h3>
                 <h5>{post.author}</h5>
                 <p>voteScore: {post.voteScore}</p>
                 <p>{convertDate(post.timestamp)}</p>
@@ -78,5 +101,14 @@ function mapStateToProps(state) {
     posts: state.posts
   }
 }
+
+const modalStyles = {
+  overlay: {},
+  content: { textAlign: 'center' }
+};
+
+const postListElementStyle = {
+  backgroundColor: 'gainsboro'
+};
 
 export default connect(mapStateToProps)(PostList);

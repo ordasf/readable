@@ -12,7 +12,7 @@ import {
 export function comments(state = [], action) {
   switch (action.type) {
     case RECEIVE_COMMENTS:
-      return [...state, ...action.comments];
+      return action.comments.slice().sort((comment1, comment2) => (comment2.voteScore - comment1.voteScore));
     case ADD_COMMENT:
       return [...state, action.comment];
     case EDIT_COMMENT:

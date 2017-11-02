@@ -2,7 +2,6 @@ import {
   ADD_POST,
   EDIT_POST,
   RECEIVE_CATEGORY_POSTS,
-  RECEIVE_POST,
   DELETE_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
@@ -13,11 +12,11 @@ import {
 export function posts(state = [], action) {
   switch (action.type) {
     case RECEIVE_CATEGORY_POSTS:
-      return [...state, ...action.posts];
-    case RECEIVE_POST:
-      return action.post;
+      return action.posts.slice().sort((post1, post2) => (post2.voteScore - post1.voteScore));
     case ADD_POST:
-      return state.slice().push(action.post);
+      const newState = state.slice();
+      newState.push(action.post);
+      return newState;
     case EDIT_POST:
       return state.map((post) => (post.id === action.post.id) ? action.post : post);
     case DELETE_POST:

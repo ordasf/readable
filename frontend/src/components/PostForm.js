@@ -12,6 +12,19 @@ class PostForm extends React.Component {
     categoryValue: ''
   };
 
+  componentDidMount() {
+    // Populate the form only if we are in editing mode
+    if (this.props.editMode) {
+      const post = this.props.currentPost;
+      this.setState({
+        titleValue: post.title,
+        bodyValue: post.body,
+        authorValue: post.author,
+        categoryValue: post.category
+      });
+    }
+  }
+
   savePost = () => {
     const { titleValue, bodyValue, authorValue, categoryValue } = this.state;
     if (titleValue === '' || bodyValue === '' || authorValue === '' || categoryValue === '') {
@@ -23,7 +36,7 @@ class PostForm extends React.Component {
         title: titleValue,
         body: bodyValue,
       };
-      this.props.dispatch(updatePostAction(this.props.post.id, updatedPost));
+      this.props.dispatch(updatePostAction(this.props.currentPost.id, updatedPost));
     } else {
       const newPost = {
         id: uuid.v1(),
@@ -35,7 +48,7 @@ class PostForm extends React.Component {
       };
       this.props.dispatch(createPostAction(newPost));
     }
-
+    this.props.togglePostFormModal();
   };
 
   updateInputValue = (event, input) => {
@@ -54,51 +67,44 @@ class PostForm extends React.Component {
     }))
   };
 
-  componentDidMount() {
-    // Populate the form only if we are in editing mode
-    if (this.props.editMode) {
-      const { post } = this.props;
-      this.setState({
-        titleValue: post.title,
-        bodyValue: post.body,
-        authorValue: post.author,
-        categoryValue: post.category
-      });
-    }
-  }
-
   render() {
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div style={{}}>
         <form>
-          <input
+          <p><input
             label="title"
             type="text"
             placeholder="Title"
             value={this.state.titleValue}
             onChange={event => {this.updateInputValue(event, 'titleValue')}}
-          />
-          <input
+          /></p>
+          <p><input
             label="body"
             type="text"
             placeholder="Body"
             value={this.state.bodyValue}
             onChange={event => {this.updateInputValue(event, 'bodyValue')}}
-          />
-          <input
+          /></p>
+          <p><input
             label="author"
             type="text"
             placeholder="Author"
             value={this.state.authorValue}
+            disabled={this.props.editMode}
             onChange={event => {this.updateInputValue(event, 'authorValue')}}
-          />
-          <select onChange={(event) => {this.updateSelect(event)}}>
-            <option defaultValue value="">-</option>
+          /></p>
+          <p><select
+            value={this.state.categoryValue}
+            onChange={(event) => {this.updateSelect(event)}}
+            disabled={this.props.editMode}
+          >
+            <option value="">-</option>
             {this.props.categories.map(category => (
               <option key={category.path} value={category.path}>{category.name}</option>
             ))}
-          </select>
-          <button type="button" onClick={this.savePost}>Accept</button>
+          </select></p>
+          <button type="button" onClick={this.savePost}>Save</button>
+          <button type="button" onClick={() => this.props.togglePostFormModal()}>Cancel</button>
         </form>
       </div>
     );
@@ -108,7 +114,8 @@ class PostForm extends React.Component {
 function mapStateToProps(state) {
   return {
     post: state.posts[0],
-    categories: state.categories
+    categories: state.categories,
+    currentPost: state.currentPost
   };
 }
 
