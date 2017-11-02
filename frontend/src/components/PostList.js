@@ -16,12 +16,29 @@ class PostList extends React.Component {
 
   state = {
     showAddPostForm: false,
-    orderType: 'scoreSort'
+    orderType: 'scoreSort',
+    currentCategory: null
   };
 
   componentDidMount() {
     const { category } = this.props.match.params;
+    this.setState(state => ({
+      ...state,
+      currentCategory: category ? category : null
+    }));
     this.props.dispatch(fetchCategoryPostsAction(category));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let category = nextProps.match.params.category;
+    category = category ? category : null;
+    if (this.state.currentCategory !== category) {
+      this.setState(state => ({
+        ...state,
+        currentCategory: category
+      }));
+      this.props.dispatch(fetchCategoryPostsAction(category));
+    }
   }
 
   togglePostFormModal = () => {
