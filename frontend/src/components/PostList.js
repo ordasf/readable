@@ -114,6 +114,7 @@ class PostList extends React.Component {
                 <h5>{post.author}</h5>
                 <p>voteScore: {post.voteScore}</p>
                 <p>{convertDate(post.timestamp)}</p>
+                <p>Number of Comments: {post.commentCount}</p>
                 <button onClick={() => this.editPost(post)}>Edit</button>
                 <button onClick={() => this.deletePost(post.id)}>Delete</button>
                 <button onClick={() => this.upVotePost(post.id)}>Upvote</button>
