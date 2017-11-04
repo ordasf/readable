@@ -15,7 +15,7 @@ class PostForm extends React.Component {
   componentDidMount() {
     // Populate the form only if we are in editing mode
     if (this.props.editMode) {
-      const post = this.props.currentPost;
+      const post = this.props.post;
       this.setState({
         titleValue: post.title,
         bodyValue: post.body,
@@ -48,7 +48,7 @@ class PostForm extends React.Component {
       };
       this.props.dispatch(createPostAction(newPost));
     }
-    this.props.togglePostFormModal();
+    this.props.closePostFormModal();
   };
 
   updateInputValue = (event, input) => {
@@ -104,7 +104,7 @@ class PostForm extends React.Component {
             ))}
           </select></p>
           <button type="button" onClick={this.savePost}>Save</button>
-          <button type="button" onClick={() => this.props.togglePostFormModal()}>Cancel</button>
+          <button type="button" onClick={() => this.props.closePostFormModal()}>Cancel</button>
         </form>
       </div>
     );
@@ -113,7 +113,6 @@ class PostForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    post: state.posts[0],
     categories: state.categories,
     currentPost: state.currentPost
   };
